@@ -888,6 +888,7 @@ func (s *Stream) Decode(val interface{}) error {
 		// Add decode target type to error so context has more meaning.
 		decErr.ctx = append(decErr.ctx, fmt.Sprint("(", rtyp.Elem(), ")"))
 	}
+
 	return err
 }
 
