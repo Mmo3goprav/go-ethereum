@@ -98,7 +98,7 @@ func TestTransactionEncode(t *testing.T) {
 	if err != nil {
 		t.Fatalf("encode error: %v", err)
 	}
-	should := common.FromHex("f86103018207d094b94f5374fce5edbc8e2a8697c15331677e6ebf0b0a8255441ca098ff921201554726367d2be8c804a7ff89ccf285ebc57dff8ae4c44b9c19ac4aa08887321be575c8095f789dd4c743dfe42c1820f9231f98a962b210e3ac2452a3")
+	should := common.FromHex("f86203018207d094b94f5374fce5edbc8e2a8697c15331677e6ebf0b0a8255441ca098ff921201554726367d2be8c804a7ff89ccf285ebc57dff8ae4c44b9c19ac4aa08887321be575c8095f789dd4c743dfe42c1820f9231f98a962b210e3ac2452a380")
 	if !bytes.Equal(txb, should) {
 		t.Errorf("encoded RLP mismatch, got %x", txb)
 	}
@@ -140,14 +140,14 @@ func TestEIP2930Signer(t *testing.T) {
 			signer:         signer1,
 			wantSignerHash: common.HexToHash("846ad7672f2a3a40c1f959cd4a8ad21786d620077084d84c8d7c077714caa139"),
 			wantSenderErr:  ErrInvalidChainId,
-			wantHash:       common.HexToHash("1ccd12d8bbdb96ea391af49a35ab641e219b2dd638dea375f2bc94dd290f2549"),
+			wantHash:       common.HexToHash("235b2d2101bef0b05e6b7f7a711fe0297e3a2c95da1b6442b439b76c00731090"),
 		},
 		{
 			tx:             tx1,
 			signer:         signer1,
 			wantSenderErr:  ErrInvalidSig,
 			wantSignerHash: common.HexToHash("846ad7672f2a3a40c1f959cd4a8ad21786d620077084d84c8d7c077714caa139"),
-			wantHash:       common.HexToHash("1ccd12d8bbdb96ea391af49a35ab641e219b2dd638dea375f2bc94dd290f2549"),
+			wantHash:       common.HexToHash("235b2d2101bef0b05e6b7f7a711fe0297e3a2c95da1b6442b439b76c00731090"),
 		},
 		{
 			// This checks what happens when trying to sign an unsigned tx for the wrong chain.
@@ -198,8 +198,9 @@ func TestEIP2718TransactionEncode(t *testing.T) {
 		if err != nil {
 			t.Fatalf("encode error: %v", err)
 		}
-		want := common.FromHex("b86601f8630103018261a894b94f5374fce5edbc8e2a8697c15331677e6ebf0b0a825544c001a0c9519f4f2b30335884581971573fadf60c6204f59a911df35ee8a540456b2660a032f1e8e2c5dd761f9e4f88f41c8310aeaba26a8bfcdacfedfa12ec3862d37521")
+		want := common.FromHex("b86701f8640103018261a894b94f5374fce5edbc8e2a8697c15331677e6ebf0b0a825544c001a0c9519f4f2b30335884581971573fadf60c6204f59a911df35ee8a540456b2660a032f1e8e2c5dd761f9e4f88f41c8310aeaba26a8bfcdacfedfa12ec3862d3752180")
 		if !bytes.Equal(have, want) {
+			fmt.Println(string(have))
 			t.Errorf("encoded RLP mismatch, got %x", have)
 		}
 	}
@@ -209,7 +210,7 @@ func TestEIP2718TransactionEncode(t *testing.T) {
 		if err != nil {
 			t.Fatalf("encode error: %v", err)
 		}
-		want := common.FromHex("01f8630103018261a894b94f5374fce5edbc8e2a8697c15331677e6ebf0b0a825544c001a0c9519f4f2b30335884581971573fadf60c6204f59a911df35ee8a540456b2660a032f1e8e2c5dd761f9e4f88f41c8310aeaba26a8bfcdacfedfa12ec3862d37521")
+		want := common.FromHex("01f8640103018261a894b94f5374fce5edbc8e2a8697c15331677e6ebf0b0a825544c001a0c9519f4f2b30335884581971573fadf60c6204f59a911df35ee8a540456b2660a032f1e8e2c5dd761f9e4f88f41c8310aeaba26a8bfcdacfedfa12ec3862d3752180")
 		if !bytes.Equal(have, want) {
 			t.Errorf("encoded RLP mismatch, got %x", have)
 		}
